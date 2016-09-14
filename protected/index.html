@@ -5,19 +5,47 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id" content="736807524112-fl28n29p67sl10edkkoll272go41l5kr.apps.googleusercontent.com">
     <title>Protected</title>
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
     <h1>Hello, world!</h1>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <a href="#" onclick="signOut();">Sign out</a>
 
     <script src="jquery/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io.connect('http://localhost:8080');
     </script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            var id_token = googleUser.getAuthResponse().id_token;
+            socket.emit('verify id_token', id_token);
+
+
+
+            /*
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+            */
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+
+    </script>
 </body>
 
 </html>
