@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Public</title>
+    <meta name="google-signin-client_id" content="736807524112-fl28n29p67sl10edkkoll272go41l5kr.apps.googleusercontent.com">
+    <title>Protected</title>
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
+</head>
+
+<body>
+    <div class="container">
+        <div class="messages"></div>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <a href="#" onclick="signOut();">Sign out</a>
+    </div>
+
 
     <script src="jquery/jquery.min.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
-  </body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:8080');
+    </script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            var id_token = googleUser.getAuthResponse().id_token;
+            socket.emit('verify id_token', id_token);
+
+            socket.on('message', function (msg) {
+                $('.messages').empty();
+                $('.messages').append(`<div class="alert alert-info">${msg}</div>`);
+            });
+
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                $('.messages').empty();
+                $('.messages').append(`<div class="alert alert-info">Signed out</div>`);
+            });
+        }
+    </script>
+</body>
+
 </html>

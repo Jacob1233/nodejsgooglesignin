@@ -1,18 +1,19 @@
 {
-  "name": "nodejsdashboard",
-  "version": "0.0.1",
-  "description": "a dashboard to control your nodejs app",
+  "name": "googlesignindemo",
+  "version": "1.0.0",
+  "description": "sign in with google nodejs authenication",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jacob Wilson",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "express": "^4.14.0",
     "google-auth-library": "^0.9.8",
     "jquery": "^3.1.0",
+    "request": "^2.74.0",
     "socket.io": "^1.4.8"
   }
 }
