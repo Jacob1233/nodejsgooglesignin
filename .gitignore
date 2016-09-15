@@ -4,3 +4,6 @@
 /bower_components/
 /node_modules/
 .DS_Store
+jacobs-cert.pem
+jacobs-csr.pem
+jacobs-key.pem
