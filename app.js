@@ -1,18 +1,17 @@
 "use strict";
 var request = require('request');
+var fs = require('fs');
 var express = require('express');
 var app = require('express')();
-var https = require('https');
-var server = require('http').Server(app);
+var http = require('http');
+var options = {
+    key: fs.readFileSync('jacobs-key.pem'),
+    cert: fs.readFileSync('jacobs-cert.pem')
+};
+var server = require('https').Server(options, app);
 var io = require('socket.io')(server);
-var fs = require('fs');
-var privateKey = fs.readFileSync('jacobs-key.pem');
-var certificate = fs.readFileSync('jacobs-cert.pem');
 
-https.createServer({
-    key: privateKey,
-    cert: certificate
-}, app).listen(8080);
+server.listen(8080);
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
