@@ -3,7 +3,6 @@ var request = require('request');
 var fs = require('fs');
 var express = require('express');
 var app = require('express')();
-var http = require('http');
 var options = {
     key: fs.readFileSync('jacobs-key.pem'),
     cert: fs.readFileSync('jacobs-cert.pem')
