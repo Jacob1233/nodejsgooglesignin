@@ -14,7 +14,6 @@ app.get('/', function (req, res) {
 
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
-app.use('/assets', express.static(__dirname + '/public/assets/'));
 
 let CLIENT_ID = '736807524112-fl28n29p67sl10edkkoll272go41l5kr.apps.googleusercontent.com';
 
