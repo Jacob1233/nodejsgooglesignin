@@ -32,11 +32,12 @@ function verifyToken(id_token) {
             var js = JSON.parse(body);
             var aud = js.aud;
             if (verifyClientID(aud) == false) {
-                var msg = `${aud} could not be verfied`;
+                var msg = `Whoops. Something went wrong.`;
+                io.emit('message', msg);
+            } else {
+                var msg = `${js.sub} successfully signed in`;
                 io.emit('message', msg);
             }
-            var msg = `${js.sub} successfully signed in`;
-            io.emit('message', msg);
         }
     });
 }
